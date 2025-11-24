@@ -1,0 +1,2 @@
+[2025-10-27 12:17:39.732] ERROR: Ошибка send (результат вектора 3): Connection reset by peer
+[2025-10-27 12:18:20.199] ERROR: Ошибка send (результат вектора 3): Connection reset by peer
