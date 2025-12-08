@@ -1,6 +1,19 @@
+/**
+ * @file log.cpp
+ * @author Мураев Н.Д.
+ * @version 1.0
+ * @date 2025
+ * @copyright ИБСТ ПГУ
+ * @brief Реализация функций логирования
+ * @details Содержит функции для записи логов с временными метками
+ */
+
 #include "log.h"
 
-// Функция для получения текущего времени в формате строки
+/**
+ * @brief Получение текущего времени в формате строки
+ * @return Строка с текущим временем в формате "ГГГГ-ММ-ДД ЧЧ:ММ:СС.мс"
+ */
 std::string getCurrentTime() {
     auto now = std::chrono::system_clock::now();
     auto time_t = std::chrono::system_clock::to_time_t(now);
@@ -13,7 +26,12 @@ std::string getCurrentTime() {
     return ss.str();
 }
 
-// Функция для записи ошибки в лог-файл
+/**
+ * @brief Запись ошибки в лог-файл
+ * @param logFile Имя файла лога
+ * @param errorMessage Сообщение об ошибке
+ * @details Добавляет временную метку и записывает сообщение в файл
+ */
 void logError(const std::string& logFile, const std::string& errorMessage) {
     std::ofstream logStream(logFile, std::ios::app);
     if (logStream.is_open()) {
