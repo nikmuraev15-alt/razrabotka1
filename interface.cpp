@@ -1,6 +1,19 @@
+/**
+ * @file interface.cpp
+ * @author Мураев Н.Д.
+ * @version 1.0
+ * @date 2025
+ * @copyright ИБСТ ПГУ
+ * @brief Реализация пользовательского интерфейса
+ * @details Содержит функции для парсинга и обработки аргументов командной строки
+ */
+
 #include "interface.h"
 
-
+/**
+ * @brief Конструктор UserInterface
+ * @details Инициализирует описание параметров командной строки
+ */
 UserInterface::UserInterface() : desc("Allowed options")
 {
     // добавление параметров в парсер командной строки
@@ -11,10 +24,14 @@ UserInterface::UserInterface() : desc("Allowed options")
     ("journal,j", po::value<std::string>(&params.inFileJournal)->required(),"Set journal file name")
     ("port,p", po::value<int>(&params.Port)->required(), "Set port")
     ("address,a", po::value<string>(&params.Address)->default_value("127.0.0.1"), "Set address");
-
 }
 
-
+/**
+ * @brief Парсинг аргументов командной строки
+ * @param argc Количество аргументов
+ * @param argv Массив аргументов
+ * @return true если парсинг успешен, false если требуется показать справку
+ */
 bool UserInterface::Parser(int argc, const char** argv)
 {
     // Если нет аргументов или только --help, показываем справку
@@ -31,7 +48,10 @@ bool UserInterface::Parser(int argc, const char** argv)
     return true;
 }
 
-
+/**
+ * @brief Получение описания параметров
+ * @return Строка с описанием параметров
+ */
 std::string UserInterface::getDescription()
 {
     std::ostringstream ss;
