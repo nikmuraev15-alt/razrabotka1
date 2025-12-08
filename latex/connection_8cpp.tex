@@ -1,0 +1,182 @@
+\doxysection{Файл connection.\+cpp}
+\hypertarget{connection_8cpp}{}\label{connection_8cpp}\index{connection.cpp@{connection.cpp}}
+
+
+Реализация сетевого соединения сервера  
+
+
+{\ttfamily \#include "{}connection.\+h"{}}\newline
+{\ttfamily \#include "{}log.\+h"{}}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+Граф включаемых заголовочных файлов для connection.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{connection_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{connection_8cpp_a6df5399d61c86926762fcfb11c6a8cc1}{find\+User\+In\+File}} (const std\+::string \&filename, const std\+::string \&username, std\+::string \&password)
+\begin{DoxyCompactList}\small\item\em Поиск пользователя в файле по логину с кэшированием \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{connection_8cpp_ad45382b5c69ed59924efb3e50e05f954}{generate\+Salt}} (size\+\_\+t length=16)
+\begin{DoxyCompactList}\small\item\em Генерация случайной соли \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{connection_8cpp_a03423a99aa0bcaac2cb84698393d8943}{process\+Vector}} (int client\+\_\+socket, uint32\+\_\+t vector\+\_\+size, const \mbox{\hyperlink{structParams}{Params}} \texorpdfstring{$\ast$}{*}p)
+\begin{DoxyCompactList}\small\item\em Обработка одного вектора с проверкой на переполнение \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{connection_8cpp_a4bf78c6148fcc7f08592006e37a6572f}{safe\+Recv}} (int socket, void \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t size, const \mbox{\hyperlink{structParams}{Params}} \texorpdfstring{$\ast$}{*}p, const std\+::string \&context)
+\begin{DoxyCompactList}\small\item\em Безопасное получение данных фиксированного размера \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{connection_8cpp_ab8e6039629de66fc3d250429a273b41c}{safe\+Send}} (int socket, const void \texorpdfstring{$\ast$}{*}data, size\+\_\+t size, const \mbox{\hyperlink{structParams}{Params}} \texorpdfstring{$\ast$}{*}p, const std\+::string \&context)
+\begin{DoxyCompactList}\small\item\em Безопасная отправка данных \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Реализация сетевого соединения сервера 
+
+\begin{DoxyAuthor}{Автор}
+Мураев Н.\+Д. 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Версия}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Дата}
+2025 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Авторство}
+ИБСТ ПГУ
+\end{DoxyCopyright}
+Содержит функции для установки соединения, аутентификации и обработки данных от клиентов 
+
+\doxysubsection{Функции}
+\Hypertarget{connection_8cpp_a6df5399d61c86926762fcfb11c6a8cc1}\label{connection_8cpp_a6df5399d61c86926762fcfb11c6a8cc1} 
+\index{connection.cpp@{connection.cpp}!findUserInFile@{findUserInFile}}
+\index{findUserInFile@{findUserInFile}!connection.cpp@{connection.cpp}}
+\doxysubsubsection{\texorpdfstring{findUserInFile()}{findUserInFile()}}
+{\footnotesize\ttfamily bool find\+User\+In\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename,  }\item[{const std\+::string \&}]{username,  }\item[{std\+::string \&}]{password }\end{DoxyParamCaption})}
+
+
+
+Поиск пользователя в файле по логину с кэшированием 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em filename} & Имя файла с пользователями \\
+\hline
+{\em username} & Логин для поиска \\
+\hline
+{\em password} & Найденный пароль (выходной параметр) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+true если пользователь найден, false если нет 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Предупреждения}
+Файл пользователей загружается только при первом вызове 
+\end{DoxyWarning}
+\Hypertarget{connection_8cpp_ad45382b5c69ed59924efb3e50e05f954}\label{connection_8cpp_ad45382b5c69ed59924efb3e50e05f954} 
+\index{connection.cpp@{connection.cpp}!generateSalt@{generateSalt}}
+\index{generateSalt@{generateSalt}!connection.cpp@{connection.cpp}}
+\doxysubsubsection{\texorpdfstring{generateSalt()}{generateSalt()}}
+{\footnotesize\ttfamily std\+::string generate\+Salt (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length = {\ttfamily 16} }\end{DoxyParamCaption})}
+
+
+
+Генерация случайной соли 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em length} & Длина соли (по умолчанию 16) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Случайная соль 
+\end{DoxyReturn}
+\Hypertarget{connection_8cpp_a03423a99aa0bcaac2cb84698393d8943}\label{connection_8cpp_a03423a99aa0bcaac2cb84698393d8943} 
+\index{connection.cpp@{connection.cpp}!processVector@{processVector}}
+\index{processVector@{processVector}!connection.cpp@{connection.cpp}}
+\doxysubsubsection{\texorpdfstring{processVector()}{processVector()}}
+{\footnotesize\ttfamily uint32\+\_\+t process\+Vector (\begin{DoxyParamCaption}\item[{int}]{client\+\_\+socket,  }\item[{uint32\+\_\+t}]{vector\+\_\+size,  }\item[{const \mbox{\hyperlink{structParams}{Params}} \texorpdfstring{$\ast$}{*}}]{p }\end{DoxyParamCaption})}
+
+
+
+Обработка одного вектора с проверкой на переполнение 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em client\+\_\+socket} & Сокет клиента \\
+\hline
+{\em vector\+\_\+size} & Размер вектора \\
+\hline
+{\em p} & Параметры соединения \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Результат обработки вектора (произведение элементов) 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Исключения}
+{\em std\+::system\+\_\+error} & при ошибках сетевых операций \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyWarning}{Предупреждения}
+Проверяет переполнение и ограничивает размер вектора 
+\end{DoxyWarning}
+\Hypertarget{connection_8cpp_a4bf78c6148fcc7f08592006e37a6572f}\label{connection_8cpp_a4bf78c6148fcc7f08592006e37a6572f} 
+\index{connection.cpp@{connection.cpp}!safeRecv@{safeRecv}}
+\index{safeRecv@{safeRecv}!connection.cpp@{connection.cpp}}
+\doxysubsubsection{\texorpdfstring{safeRecv()}{safeRecv()}}
+{\footnotesize\ttfamily void safe\+Recv (\begin{DoxyParamCaption}\item[{int}]{socket,  }\item[{void \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{size,  }\item[{const \mbox{\hyperlink{structParams}{Params}} \texorpdfstring{$\ast$}{*}}]{p,  }\item[{const std\+::string \&}]{context }\end{DoxyParamCaption})}
+
+
+
+Безопасное получение данных фиксированного размера 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em socket} & Сокет \\
+\hline
+{\em buffer} & Буфер для данных \\
+\hline
+{\em size} & Размер данных \\
+\hline
+{\em p} & Параметры соединения \\
+\hline
+{\em context} & Контекст для сообщения об ошибке \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Исключения}
+{\em std\+::system\+\_\+error} & при ошибках получения данных \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{connection_8cpp_ab8e6039629de66fc3d250429a273b41c}\label{connection_8cpp_ab8e6039629de66fc3d250429a273b41c} 
+\index{connection.cpp@{connection.cpp}!safeSend@{safeSend}}
+\index{safeSend@{safeSend}!connection.cpp@{connection.cpp}}
+\doxysubsubsection{\texorpdfstring{safeSend()}{safeSend()}}
+{\footnotesize\ttfamily void safe\+Send (\begin{DoxyParamCaption}\item[{int}]{socket,  }\item[{const void \texorpdfstring{$\ast$}{*}}]{data,  }\item[{size\+\_\+t}]{size,  }\item[{const \mbox{\hyperlink{structParams}{Params}} \texorpdfstring{$\ast$}{*}}]{p,  }\item[{const std\+::string \&}]{context }\end{DoxyParamCaption})}
+
+
+
+Безопасная отправка данных 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em socket} & Сокет \\
+\hline
+{\em data} & Данные для отправки \\
+\hline
+{\em size} & Размер данных \\
+\hline
+{\em p} & Параметры соединения \\
+\hline
+{\em context} & Контекст для сообщения об ошибке \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Исключения}
+{\em std\+::system\+\_\+error} & при ошибках отправки данных \\
+\hline
+\end{DoxyExceptions}

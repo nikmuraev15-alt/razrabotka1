@@ -1,0 +1,68 @@
+\doxysection{Класс Connection}
+\hypertarget{classConnection}{}\label{classConnection}\index{Connection@{Connection}}
+
+
+Класс для управления сетевыми соединениями сервера  
+
+
+
+
+{\ttfamily \#include $<$connection.\+h$>$}
+
+\doxysubsubsection*{Открытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{classConnection_a1c0092a7af3d53576d73db10cb21fc1f}{conn}} (const \mbox{\hyperlink{structParams}{Params}} \texorpdfstring{$\ast$}{*}p)
+\begin{DoxyCompactList}\small\item\em Установка соединения и обработка клиентов \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для управления сетевыми соединениями сервера 
+
+Обеспечивает установку соединения, аутентификацию клиентов и обработку данных 
+
+\doxysubsection{Методы}
+\Hypertarget{classConnection_a1c0092a7af3d53576d73db10cb21fc1f}\label{classConnection_a1c0092a7af3d53576d73db10cb21fc1f} 
+\index{Connection@{Connection}!conn@{conn}}
+\index{conn@{conn}!Connection@{Connection}}
+\doxysubsubsection{\texorpdfstring{conn()}{conn()}}
+{\footnotesize\ttfamily int Connection\+::conn (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structParams}{Params}} \texorpdfstring{$\ast$}{*}}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Установка соединения и обработка клиентов 
+
+Основной метод установки соединения и обработки клиентов
+
+
+\begin{DoxyParams}{Аргументы}
+{\em p} & Указатель на параметры соединения \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Код завершения (0 -\/ успех, 1 -\/ ошибка) 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Исключения}
+{\em std\+::system\+\_\+error} & при ошибках сетевых операций\\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}{Аргументы}
+{\em p} & Указатель на параметры соединения \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Код завершения (0 -\/ успех, 1 -\/ ошибка) 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Исключения}
+{\em std\+::system\+\_\+error} & при ошибках сетевых операций\\
+\hline
+\end{DoxyExceptions}
+Выполняет полный цикл работы сервера\+: создание сокета, привязка, прослушивание, аутентификация клиента и обработка данных 
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{connection_8h}{connection.\+h}}\item 
+\mbox{\hyperlink{connection_8cpp}{connection.\+cpp}}\end{DoxyCompactItemize}
